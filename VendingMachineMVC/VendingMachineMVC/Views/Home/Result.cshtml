@@ -1,0 +1,36 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@model VendingMachineMVC.Models.VendingOutput
+
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Results</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                @if (Model.Change == 0)
+                {
+                    <h4>No change is due.</h4>
+                }
+                else
+                {
+                    <h4>
+                        Your change is @Model.Quarters quarters, @Model.Dimes dimes, @Model.Nickels nickels and @Model.Pennies pennies.
+                    </h4>
+                }
+
+                <p>@Html.ActionLink("Buy something else?", "Index", "Home")</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

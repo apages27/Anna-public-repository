@@ -1,0 +1,62 @@
+﻿@model VendingMachineMVC.Models.UserInput
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h2>Vending Machine</h2>
+                <p>--------------------</p>
+                @foreach (var item in Model.VendingItems)
+                {
+                    <p>@item.Choice - @item.Description - @item.Price.ToString("C")</p>
+                }
+                <p>--------------------</p>
+                
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div style="font-weight: bold; color:red">@Model.ErrorMessage</div>
+                }
+                
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new
+                {
+                    role = "form"
+                }))
+                {
+                    <div style="font-weight: bold; color: red">@Html.ValidationSummary()</div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserChoice)
+                        @Html.TextBoxFor(m => m.UserChoice, new
+                   {
+                       placeholder = "Enter choice",
+                       @class = "form-control"
+                   })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserPaid)
+                        @Html.TextBoxFor(m => m.UserPaid, new
+                        {
+                            placeholder = "Enter amount",
+                            @class = "form-control"
+                        })
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit!" class="btn btn-info">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
