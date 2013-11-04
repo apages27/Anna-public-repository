@@ -1,0 +1,7 @@
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\bin\Debug\Magic8Ballacp.exe.config
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\obj\Debug\Magic8Ballacp.csprojResolveAssemblyReference.cache
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\bin\Debug\TextFile1.txt
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\bin\Debug\Magic8Ballacp.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\bin\Debug\Magic8Ballacp.pdb
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\obj\Debug\Magic8Ballacp.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\Magic8Ballacp\Magic8Ballacp\obj\Debug\Magic8Ballacp.pdb
