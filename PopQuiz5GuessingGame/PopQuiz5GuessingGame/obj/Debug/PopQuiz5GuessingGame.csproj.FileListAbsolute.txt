@@ -1,0 +1,6 @@
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\bin\Debug\PopQuiz5GuessingGame.exe.config
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\bin\Debug\PopQuiz5GuessingGame.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\bin\Debug\PopQuiz5GuessingGame.pdb
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\obj\Debug\PopQuiz5GuessingGame.csprojResolveAssemblyReference.cache
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\obj\Debug\PopQuiz5GuessingGame.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\PopQuiz5GuessingGame\PopQuiz5GuessingGame\obj\Debug\PopQuiz5GuessingGame.pdb
