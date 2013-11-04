@@ -1,0 +1,6 @@
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\bin\Debug\Lucky7sAssignment.exe.config
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\bin\Debug\Lucky7sAssignment.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\bin\Debug\Lucky7sAssignment.pdb
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\obj\Debug\Lucky7sAssignment.csprojResolveAssemblyReference.cache
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\obj\Debug\Lucky7sAssignment.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\Lucky7sAssignment\Lucky7sAssignment\obj\Debug\Lucky7sAssignment.pdb
