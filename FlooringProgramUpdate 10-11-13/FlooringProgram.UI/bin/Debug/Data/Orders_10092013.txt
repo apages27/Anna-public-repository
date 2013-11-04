@@ -1,0 +1,6 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,Cost/SqFt,LaborCost/SqFt,MaterialCost,LaborCost,Tax,Total
+1,Blargh,OH,6.25,carpet,56,2.25,2.10,126.00,117.60,1522.50,1766.10
+
+
+5,Lawrence of Arabia,OH,6.25,carpet,67,2.25,2.10,150.75,140.70,18.22,309.67
+6,Andy,OH,6.25,carpet,67,2.25,2.10,150.75,140.70,18.22,309.67

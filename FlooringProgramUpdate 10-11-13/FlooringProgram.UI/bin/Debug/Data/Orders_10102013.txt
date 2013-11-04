@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,Blahdy,OH,6.25,carpet,32,2.25,2.10,72.00,67.20,8.70,147.90
