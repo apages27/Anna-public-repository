@@ -1,0 +1,6 @@
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\bin\Debug\NextPrimeNumber.exe.config
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\obj\Debug\NextPrimeNumber.csprojResolveAssemblyReference.cache
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\bin\Debug\NextPrimeNumber.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\bin\Debug\NextPrimeNumber.pdb
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\obj\Debug\NextPrimeNumber.exe
+c:\users\apprentice\documents\visual studio 2012\Projects\NextPrimeNumber\NextPrimeNumber\obj\Debug\NextPrimeNumber.pdb
