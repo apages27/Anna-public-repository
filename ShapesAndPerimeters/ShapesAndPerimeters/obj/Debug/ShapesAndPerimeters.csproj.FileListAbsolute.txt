@@ -1,0 +1,6 @@
+c:\users\apprentice\documents\visual studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\bin\Debug\ShapesAndPerimeters.exe.config
+c:\users\apprentice\documents\visual studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\obj\Debug\ShapesAndPerimeters.csprojResolveAssemblyReference.cache
+C:\Users\apprentice\Documents\Visual Studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\bin\Debug\ShapesAndPerimeters.exe
+C:\Users\apprentice\Documents\Visual Studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\bin\Debug\ShapesAndPerimeters.pdb
+C:\Users\apprentice\Documents\Visual Studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\obj\Debug\ShapesAndPerimeters.exe
+C:\Users\apprentice\Documents\Visual Studio 2012\Projects\ShapesAndPerimeters\ShapesAndPerimeters\obj\Debug\ShapesAndPerimeters.pdb
