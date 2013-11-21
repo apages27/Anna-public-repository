@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <p>Welcome to the tip calculator!</p>
+            <p>Too lazy to do the math in your head?  Let me take care of it for you!</p>
+            <p>@Html.ActionLink("Go to the calculator!", "GetInput", "Home")</p>
+        </div>
+    </div>
+</body>
+</html>
