@@ -1,0 +1,9 @@
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\BankAcctMgrLab.Test.dll
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\BankAcctMgrLab.Test.pdb
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\BankAcctMgrLab.exe
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\nunit.framework.dll
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\BankAcctMgrLab.pdb
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\bin\Debug\nunit.framework.xml
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\obj\Debug\BankAcctMgrLab.Test.csprojResolveAssemblyReference.cache
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\obj\Debug\BankAcctMgrLab.Test.dll
+c:\users\anna.pages\documents\visual studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab.Test\obj\Debug\BankAcctMgrLab.Test.pdb
