@@ -23,7 +23,7 @@ namespace BankAcctMgrLab
 
                 string[] userFile = oper.GetUserFile();
 
-
+                oper.DecideIfNewOrCurrentUser(userFile, userNameEntry);
 
                 //if (pinEntry == user.PIN)
                 //{

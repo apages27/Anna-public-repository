@@ -10,3 +10,9 @@ C:\Users\Anna\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\
 C:\Users\Anna\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.exe
 C:\Users\Anna\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.pdb
 C:\Users\Anna\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.csprojResolveAssemblyReference.cache
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.exe.config
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.exe
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.csprojResolveAssemblyReference.cache
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.exe
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.pdb
