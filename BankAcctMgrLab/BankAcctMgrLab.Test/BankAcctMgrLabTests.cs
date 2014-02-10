@@ -29,10 +29,21 @@ namespace BankAcctMgrLab.Test
             user.PIN = 1234;
 
             oper.AddUserToFile(user);
-            string[] userFileArray = oper.GetUserFile().Split(',');
+            string[] userFileArray = oper.GetUserFile();
             string newestUser = userFileArray[userFileArray.Length-1];
 
             Assert.AreEqual("Anna,1234", newestUser);
         }
+
+        //[Test]
+        //public void CheckForCorrectPasswordTest()
+        //{
+        //    string[] testFile = new[] { "Anna,1234", "Peter,1111" };
+
+        //    string userNameEntry = "Anna";
+        //    oper.CheckPINForCurrentUser(userNameEntry);
+
+            
+        //}
     }
 }

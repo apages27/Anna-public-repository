@@ -9,14 +9,16 @@ namespace BankAcctMgrLab
 {
     public class Operations
     {
-        public void DisplayUserMenu()
-        {
-            Console.Write("Please select an account (\"c\" for checking or \"s\" for savings): ");
-        }
+        UI ui = new UI();
 
-        public string GetUserFile()
+        public string[] GetUserFile()
         {
-            string userFile = File.ReadAllLines(@"C:\Users\anna.pages\Documents\Visual Studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\UserFile.txt").ToString();
+            string[] userFile = new string[0];
+
+            if (File.Exists(@".\UserFile.txt"))
+            {
+                userFile = File.ReadAllLines(@".\UserFile.txt"); 
+            }
 
             return userFile;
         }
@@ -26,7 +28,7 @@ namespace BankAcctMgrLab
             string userString = user.UserName + "," + user.PIN;
             
             File.AppendAllText(
-                @"C:\Users\anna.pages\Documents\Visual Studio 2013\Projects\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\UserFile.txt", userString + Environment.NewLine);
+                @".\UserFile.txt", userString + Environment.NewLine);
         }
 
         public int ValidateAndReturnPINInput(string pinEntry)
@@ -37,11 +39,57 @@ namespace BankAcctMgrLab
             while (!isInt)
             {
                 isInt = int.TryParse(pinEntry, out result);
-                Console.Write("That was not a valid entry.  Please try again: ");
-                pinEntry = Console.ReadLine();
+
+                if (!isInt)
+                {
+                    pinEntry = ui.GetIntInputFromUser("validInt"); 
+                }
             }
 
             return result;
+        }
+
+        public bool DecideIfNewOrCurrentUser(string[] userFile, string userNameEntry)
+        {
+            bool currentUser = false;
+
+            foreach (string user in userFile)
+            {
+                if (!user.Contains(userNameEntry))
+                {
+                    GetPINForNewUser(userNameEntry);
+                    break;
+                }
+                else
+                {
+                    CheckPINForCurrentUser(userNameEntry);
+                    currentUser = true;
+                }
+            }
+
+            return currentUser;
+        }
+
+        public void GetPINForNewUser(string userNameEntry)
+        {
+            User newUser = new User();
+            newUser.UserName = userNameEntry;
+
+            newUser.PIN = ValidateAndReturnPINInput(ui.GetIntInputFromUser("newPIN"));
+
+            AddUserToFile(newUser);
+        }
+
+        public void CheckPINForCurrentUser(string userNameEntry)
+        {
+            bool correctPIN = false;
+
+            int pinEntry = ValidateAndReturnPINInput(ui.GetIntInputFromUser("currentPIN"));
+
+            while (!correctPIN)
+            {
+                
+            }
         }
     }
 }
