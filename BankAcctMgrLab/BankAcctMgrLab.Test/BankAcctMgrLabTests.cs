@@ -30,20 +30,17 @@ namespace BankAcctMgrLab.Test
 
             oper.AddUserToFile(user);
             string[] userFileArray = oper.GetUserFile();
-            string newestUser = userFileArray[userFileArray.Length-1];
+            string newestUser = userFileArray[userFileArray.Length - 1];
 
             Assert.AreEqual("Anna,1234", newestUser);
         }
 
-        //[Test]
-        //public void CheckForCorrectPasswordTest()
-        //{
-        //    string[] testFile = new[] { "Anna,1234", "Peter,1111" };
+        [Test]
+        public void CheckForCorrectPINTest()
+        {
+            bool result = oper.CheckIfCorrectPIN(1234, "Anna");
 
-        //    string userNameEntry = "Anna";
-        //    oper.CheckPINForCurrentUser(userNameEntry);
-
-            
-        //}
+            Assert.AreEqual(true, result);
+        }
     }
 }
