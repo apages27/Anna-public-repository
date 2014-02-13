@@ -41,6 +41,9 @@ namespace BankAcctMgrLab
                 case "validInt":
                     Console.Write("That was not a valid entry.  Please try again: ");
                     break;
+                case "correctPIN":
+                    Console.Write("That was not the correct PIN.  Please try again: ");
+                    break;
             }
 
             return Console.ReadLine();

@@ -17,7 +17,7 @@ namespace BankAcctMgrLab
 
             if (File.Exists(@".\UserFile.txt"))
             {
-                userFile = File.ReadAllLines(@".\UserFile.txt"); 
+                userFile = File.ReadAllLines(@".\UserFile.txt");
             }
 
             return userFile;
@@ -26,7 +26,7 @@ namespace BankAcctMgrLab
         public void AddUserToFile(User user)
         {
             string userString = user.UserName + "," + user.PIN;
-            
+
             File.AppendAllText(
                 @".\UserFile.txt", userString + Environment.NewLine);
         }
@@ -42,7 +42,7 @@ namespace BankAcctMgrLab
 
                 if (!isInt)
                 {
-                    pinEntry = ui.GetIntInputFromUser("validInt"); 
+                    pinEntry = ui.GetIntInputFromUser("validInt");
                 }
             }
 
@@ -62,7 +62,7 @@ namespace BankAcctMgrLab
                 }
                 else
                 {
-                    CheckPINForCurrentUser(userNameEntry);
+                    GetPINForCurrentUser(userNameEntry);
                     currentUser = true;
                 }
             }
@@ -80,7 +80,7 @@ namespace BankAcctMgrLab
             AddUserToFile(newUser);
         }
 
-        public void CheckPINForCurrentUser(string userNameEntry)
+        public bool GetPINForCurrentUser(string userNameEntry)
         {
             bool correctPIN = false;
 
@@ -88,8 +88,33 @@ namespace BankAcctMgrLab
 
             while (!correctPIN)
             {
-                
+                correctPIN = CheckIfCorrectPIN(pinEntry, userNameEntry);
+                pinEntry = ValidateAndReturnPINInput(ui.GetIntInputFromUser("correctPIN"));
             }
+
+            return correctPIN;
+        }
+
+        public bool CheckIfCorrectPIN(int pinEntry, string userNameEntry)
+        {
+            bool correctPIN = false;
+
+            string[] userFile = GetUserFile();
+
+            foreach (string user in userFile)
+            {
+                string[] splitUserFile = user.Split(',');
+
+                foreach (string s in splitUserFile)
+                {
+                    if (s == userNameEntry && (s + 1) == pinEntry.ToString())
+                    {
+                        correctPIN = true;
+                    }
+                }
+            }
+
+            return correctPIN;
         }
     }
 }
