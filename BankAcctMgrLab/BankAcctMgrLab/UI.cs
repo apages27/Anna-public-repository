@@ -8,6 +8,8 @@ namespace BankAcctMgrLab
 {
     public class UI
     {
+        private Operations oper = new Operations();
+
         public void Initialize()
         {
             Console.WriteLine("----------------------------------------");
@@ -49,9 +51,55 @@ namespace BankAcctMgrLab
             return Console.ReadLine();
         }
 
-        public void DisplayUserMenu()
+        public void DisplayUserMenu(string userName)
         {
-            Console.Write("Please select an account (\"c\" for checking or \"s\" for savings): ");
+            Console.Clear();
+            Console.Write("Please select an account (\"C\" for checking or \"S\" for savings): ");
+
+            string userChoice = Console.ReadLine().ToLower();
+
+            if (userChoice == "c")
+            {
+                DisplayCheckingAccount(userName);
+            }
+            else if (userChoice == "s")
+            {
+                DisplaySavingsAccount(userName);
+            }
+        }
+
+        public void DisplaySavingsAccount(string userName)
+        {
+            decimal savingsBalance = oper.GetSavingsBalance(userName);
+
+            Console.Clear();
+            Console.WriteLine("The current balance in your savings account is: {0}", savingsBalance);
+
+            if (savingsBalance > 0)
+            {
+                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a wthdrawal: ");
+            }
+            else
+            {
+                Console.Write("Would you like to make a deposit? Y/N ");
+            }
+        }
+
+        public void DisplayCheckingAccount(string userName)
+        {
+            decimal checkingBalance = oper.GetCheckingBalance(userName);
+
+            Console.Clear();
+            Console.WriteLine("The current balance in your checking account is: {0}", checkingBalance);
+
+            if (checkingBalance > 0)
+            {
+                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a wthdrawal: " );
+            }
+            else
+            {
+                Console.Write("Would you like to make a deposit? Y/N ");
+            }
         }
     }
 }

@@ -8,12 +8,14 @@ namespace BankAcctMgrLab
 {
     class Program
     {
+        public static UI ui;
+
         static void Main(string[] args)
         {
             bool isStarted = true;
             string userNameEntry = "";
             Operations oper = new Operations();
-            UI ui = new UI();
+            ui = new UI();
 
             while (isStarted)
             {
@@ -25,12 +27,7 @@ namespace BankAcctMgrLab
 
                 oper.DecideIfNewOrCurrentUser(userFile, userNameEntry);
 
-                //if (pinEntry == user.PIN)
-                //{
-                //    oper.DisplayUserMenu();
-                //}
-
-
+                ui.DisplayUserMenu(userNameEntry);
             }
         }
     }

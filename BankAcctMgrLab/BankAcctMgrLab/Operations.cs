@@ -9,8 +9,6 @@ namespace BankAcctMgrLab
 {
     public class Operations
     {
-        UI ui = new UI();
-
         public string[] GetUserFile()
         {
             string[] userFile = new string[0];
@@ -25,7 +23,7 @@ namespace BankAcctMgrLab
 
         public void AddUserToFile(User user)
         {
-            string userString = user.UserName + "," + user.PIN;
+            string userString = user.UserName + "," + user.PIN + "," + 0.00M + "," + 0.00M;
 
             File.AppendAllText(
                 @".\UserFile.txt", userString + Environment.NewLine);
@@ -42,7 +40,7 @@ namespace BankAcctMgrLab
 
                 if (!isInt)
                 {
-                    pinEntry = ui.GetIntInputFromUser("validInt");
+                    pinEntry = Program.ui.GetIntInputFromUser("validInt");
                 }
             }
 
@@ -75,7 +73,7 @@ namespace BankAcctMgrLab
             User newUser = new User();
             newUser.UserName = userNameEntry;
 
-            newUser.PIN = ValidateAndReturnPINInput(ui.GetIntInputFromUser("newPIN"));
+            newUser.PIN = ValidateAndReturnPINInput(Program.ui.GetIntInputFromUser("newPIN"));
 
             AddUserToFile(newUser);
         }
@@ -84,12 +82,15 @@ namespace BankAcctMgrLab
         {
             bool correctPIN = false;
 
-            int pinEntry = ValidateAndReturnPINInput(ui.GetIntInputFromUser("currentPIN"));
+            int pinEntry = ValidateAndReturnPINInput(Program.ui.GetIntInputFromUser("currentPIN"));
 
             while (!correctPIN)
             {
                 correctPIN = CheckIfCorrectPIN(pinEntry, userNameEntry);
-                pinEntry = ValidateAndReturnPINInput(ui.GetIntInputFromUser("correctPIN"));
+                if (!correctPIN)
+                {
+                    pinEntry = ValidateAndReturnPINInput(Program.ui.GetIntInputFromUser("correctPIN")); 
+                }
             }
 
             return correctPIN;
@@ -105,16 +106,49 @@ namespace BankAcctMgrLab
             {
                 string[] splitUserFile = user.Split(',');
 
-                foreach (string s in splitUserFile)
+                if (splitUserFile[0] == userNameEntry && splitUserFile[1] == pinEntry.ToString())
                 {
-                    if (s == userNameEntry && (s + 1) == pinEntry.ToString())
-                    {
-                        correctPIN = true;
-                    }
+                    correctPIN = true;
                 }
             }
 
             return correctPIN;
+        }
+
+        public decimal GetCheckingBalance(string userName)
+        {
+            string[] userFile = GetUserFile();
+
+            decimal checkingBalance = 0.00M;
+
+            foreach (string user in userFile)
+            {
+                string[] splitUserFile = user.Split(',');
+
+                if (splitUserFile[0] == userName && splitUserFile.Length > 2)
+                {
+                    checkingBalance = decimal.Parse(splitUserFile[2]);
+                }
+            }
+            return checkingBalance;
+        }
+
+        public decimal GetSavingsBalance(string userName)
+        {
+            string[] userFile = GetUserFile();
+
+            decimal savingsBalance = 0.00M;
+
+            foreach (string user in userFile)
+            {
+                string[] splitUserFile = user.Split(',');
+
+                if (splitUserFile[0] == userName && splitUserFile.Length > 2)
+                {
+                    savingsBalance = decimal.Parse(splitUserFile[3]);
+                }
+            }
+            return savingsBalance;
         }
     }
 }
