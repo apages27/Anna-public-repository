@@ -10,7 +10,7 @@ namespace BankAcctMgrLab.Test
     [TestFixture]
     public class BankAcctMgrLabTests
     {
-        Operations oper = new Operations();
+        private Operations oper = new Operations();
 
         [Test]
         public void ValidIntInputTest()
