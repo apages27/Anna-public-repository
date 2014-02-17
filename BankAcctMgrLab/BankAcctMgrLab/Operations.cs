@@ -11,7 +11,7 @@ namespace BankAcctMgrLab
     {
         public string[] GetUserFile()
         {
-            string[] userFile = new string[0];
+            string[] userFile = null;
 
             if (File.Exists(@".\UserFile.txt"))
             {
@@ -51,20 +51,27 @@ namespace BankAcctMgrLab
         {
             bool currentUser = false;
 
-            foreach (string user in userFile)
+            if (userFile != null)
             {
-                if (!user.Contains(userNameEntry))
+                foreach (string user in userFile)
                 {
-                    GetPINForNewUser(userNameEntry);
-                    break;
-                }
-                else
-                {
-                    GetPINForCurrentUser(userNameEntry);
-                    currentUser = true;
-                }
+                    if (!user.Contains(userNameEntry))
+                    {
+                        GetPINForNewUser(userNameEntry);
+                        break;
+                    }
+                    else
+                    {
+                        GetPINForCurrentUser(userNameEntry);
+                        currentUser = true;
+                    }
+                } 
             }
-
+            else
+            {
+                GetPINForNewUser(userNameEntry);
+            }
+            
             return currentUser;
         }
 

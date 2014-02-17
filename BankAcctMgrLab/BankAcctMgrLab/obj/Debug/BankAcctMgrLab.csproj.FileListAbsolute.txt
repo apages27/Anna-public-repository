@@ -15,3 +15,4 @@ C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctM
 C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\bin\Debug\BankAcctMgrLab.pdb
 C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.exe
 C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\BankAcctMgrLab\BankAcctMgrLab\obj\Debug\BankAcctMgrLab.csprojResolveAssemblyReference.cache

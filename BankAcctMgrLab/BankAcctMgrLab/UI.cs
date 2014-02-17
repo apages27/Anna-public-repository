@@ -73,11 +73,11 @@ namespace BankAcctMgrLab
             decimal savingsBalance = oper.GetSavingsBalance(userName);
 
             Console.Clear();
-            Console.WriteLine("The current balance in your savings account is: {0}", savingsBalance);
+            Console.WriteLine("The current balance in your savings account is: {0:c}", savingsBalance);
 
             if (savingsBalance > 0)
             {
-                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a wthdrawal: ");
+                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a withdrawal: ");
             }
             else
             {
@@ -90,11 +90,11 @@ namespace BankAcctMgrLab
             decimal checkingBalance = oper.GetCheckingBalance(userName);
 
             Console.Clear();
-            Console.WriteLine("The current balance in your checking account is: {0}", checkingBalance);
+            Console.WriteLine("The current balance in your checking account is: {0:c}", checkingBalance);
 
             if (checkingBalance > 0)
             {
-                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a wthdrawal: " );
+                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a withdrawal: " );
             }
             else
             {
