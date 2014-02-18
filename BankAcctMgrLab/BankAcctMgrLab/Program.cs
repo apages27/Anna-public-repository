@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,35 @@ namespace BankAcctMgrLab
 
                 oper.DecideIfNewOrCurrentUser(userFile, userNameEntry);
 
-                ui.DisplayUserMenu(userNameEntry);
+                decimal userAccountBalance = ui.DisplayUserMenu(userNameEntry);
+
+                string accountAction = ui.GetUserAccountActionChoice(userAccountBalance);
+
+                switch (accountAction)
+                {
+                    case "n":
+                        string userChoice = ui.OfferMainMenuOrQuit();
+
+                        if (userChoice == "m")
+                        {
+                            ui.DisplayUserMenu(userNameEntry);
+                        }
+                        else
+                        {
+                            isStarted = false;
+                        }
+                        break;
+                    case "y":
+                    case "d":
+                        decimal userAmount = ui.DisplayAccountActionScreen(accountAction);
+
+                        break;
+                    case "w":
+                        userAmount = ui.DisplayAccountActionScreen(accountAction);
+                        break;
+                }
+
+
             }
         }
     }

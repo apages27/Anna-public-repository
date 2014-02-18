@@ -25,6 +25,9 @@ namespace BankAcctMgrLab
                 case "userName":
                     Console.Write("Please enter your user name: ");
                     break;
+                case "validChoice":
+                    Console.Write("That was not a valid choice.  Please try again: ");
+                    break;
             }
 
             return Console.ReadLine();
@@ -51,55 +54,115 @@ namespace BankAcctMgrLab
             return Console.ReadLine();
         }
 
-        public void DisplayUserMenu(string userName)
+        public string GetDecimalInputFromUser(string inputType)
+        {
+            switch (inputType)
+            {
+                case "validDec":
+                    Console.Write("That was not a valid entry.  Please try again: ");
+                    break;
+            }
+
+            return Console.ReadLine();
+        }
+
+        public decimal DisplayUserMenu(string userName)
         {
             Console.Clear();
             Console.Write("Please select an account (\"C\" for checking or \"S\" for savings): ");
 
             string userChoice = Console.ReadLine().ToLower();
 
+            while (userChoice != "c" && userChoice != "s")
+            {
+                userChoice = GetStringInputFromUser("validChoice").ToLower();
+            }
+
+            decimal accountBalance = DisplayAccount(userChoice, userName);
+
+            return accountBalance;
+        }
+
+        public decimal DisplayAccount(string userChoice, string userName)
+        {
+            decimal balance;
+
             if (userChoice == "c")
             {
-                DisplayCheckingAccount(userName);
+                balance = oper.GetCheckingBalance(userName);
+                userChoice = "checking";
             }
-            else if (userChoice == "s")
+            else
             {
-                DisplaySavingsAccount(userName);
+                balance = oper.GetSavingsBalance(userName);
+                userChoice = "savings";
             }
-        }
-
-        public void DisplaySavingsAccount(string userName)
-        {
-            decimal savingsBalance = oper.GetSavingsBalance(userName);
 
             Console.Clear();
-            Console.WriteLine("The current balance in your savings account is: {0:c}", savingsBalance);
+            Console.WriteLine("The current balance in your {0} account is: {1:c}", userChoice, balance);
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine();
 
-            if (savingsBalance > 0)
+            return balance;
+        }
+
+        public string GetUserAccountActionChoice(decimal balance)
+        {
+            string userChoice;
+
+            if (balance > 0)
             {
                 Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a withdrawal: ");
+                userChoice = Console.ReadLine().ToLower();
             }
             else
             {
                 Console.Write("Would you like to make a deposit? Y/N ");
+                userChoice = Console.ReadLine().ToLower();
             }
+
+            return userChoice;
         }
 
-        public void DisplayCheckingAccount(string userName)
+        public decimal DisplayAccountActionScreen(string action)
         {
-            decimal checkingBalance = oper.GetCheckingBalance(userName);
+            decimal amount = 0.00m;
 
-            Console.Clear();
-            Console.WriteLine("The current balance in your checking account is: {0:c}", checkingBalance);
+            if (action == "d" || action == "y")
+            {
+                Console.Write("Please enter the amount you wish to deposit: ");
+                bool validDecimal = decimal.TryParse(Console.ReadLine(), out amount);
 
-            if (checkingBalance > 0)
-            {
-                Console.WriteLine("Please choose \"D\" to make a deposit or \"W\" to make a withdrawal: " );
+                while (!validDecimal)
+                {
+                    validDecimal = decimal.TryParse(GetDecimalInputFromUser("validDec"), out amount);
+                }
             }
-            else
+            else if (action == "w")
             {
-                Console.Write("Would you like to make a deposit? Y/N ");
+                Console.Write("Please enter the amount you wish to deposit: ");
+                bool validDecimal = decimal.TryParse(Console.ReadLine(), out amount);
+
+                while (!validDecimal)
+                {
+                    validDecimal = decimal.TryParse(GetDecimalInputFromUser("validDec"), out amount);
+                }
             }
+
+            return amount;
+        }
+
+        public string OfferMainMenuOrQuit()
+        {
+            Console.Write("Would you like to return to the Main Menu (\"M\"), or quit (\"Q\")?");
+            string choice = Console.ReadLine().ToLower();
+
+            while (choice != "m" && choice != "q")
+            {
+                choice = GetStringInputFromUser("validChoice");
+            }
+
+            return choice;
         }
     }
 }
