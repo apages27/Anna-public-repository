@@ -34,3 +34,12 @@ C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-1
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.csprojResolveAssemblyReference.cache
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.dll
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\FlooringProgram.Data.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\FlooringProgram.Data.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\FlooringProgram.Models.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\nunit.framework.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\FlooringProgram.Models.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\bin\Debug\nunit.framework.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.csprojResolveAssemblyReference.cache
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Data\obj\Debug\FlooringProgram.Data.pdb

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting;
-using System.Text;
-using System.Threading.Tasks;
-using FlooringProgram.Data.Orders;
+﻿using FlooringProgram.Data.Orders;
 using FlooringProgram.Models;
-using FlooringProgram.Operations;
 using NUnit.Framework;
 
 namespace FlooringProgram.Tests

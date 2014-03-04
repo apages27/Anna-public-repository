@@ -1,10 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FlooringProgram.Models;
 using FlooringProgram.Models.Interfaces;
 using System.IO;

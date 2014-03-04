@@ -1,11 +1,8 @@
-﻿using System.Net.Configuration;
-using FlooringProgram.Data.Orders;
+﻿using FlooringProgram.Data.Orders;
 using FlooringProgram.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using FlooringProgram.Models.Interfaces;
 

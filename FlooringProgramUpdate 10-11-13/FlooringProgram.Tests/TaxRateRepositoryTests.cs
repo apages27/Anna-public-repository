@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FlooringProgram.Data.TaxRates;
+﻿using FlooringProgram.Data.TaxRates;
 using FlooringProgram.Models.Interfaces;
 using NUnit.Framework;
 

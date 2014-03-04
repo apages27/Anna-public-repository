@@ -42,3 +42,14 @@ C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-1
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.csprojResolveAssemblyReference.cache
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.dll
 C:\Users\apprentice\Documents\Github\Anna_SWCGuild\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Operations.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Operations.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Data.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Models.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\nunit.framework.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Data.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\FlooringProgram.Models.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\bin\Debug\nunit.framework.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.csprojResolveAssemblyReference.cache
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\FlooringProgramUpdate 10-11-13\FlooringProgram.Operations\obj\Debug\FlooringProgram.Operations.pdb
