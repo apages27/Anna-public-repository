@@ -11,12 +11,10 @@ namespace FlooringProgram.Operations
     public class OrderOperations
     {
         IOrderRepository repository = OrderRepositoryFactory.GetOrderRepository();
-        
+
         public OrdersResult RetrieveOrdersFor(DateTime date)
         {
             OrdersResult result = new OrdersResult();
-
-            
 
             if (!repository.FileExistsFor(date))
             {
@@ -25,8 +23,6 @@ namespace FlooringProgram.Operations
             }
             else
             {
-                // ask repository to load orders
-                // set success to true
                 result.Success = true;
                 result.Orders = repository.GetOrders(date);
             }
@@ -70,7 +66,7 @@ namespace FlooringProgram.Operations
             for (int i = 1; i < productData.Length; i++)
             {
                 string[] productDataSplit = productData[i].Split(',');
-                
+
                 if (productDataSplit[0].ToUpper() == custIn.ProductType.ToUpper())
                 {
                     orderData.CostPerSquareFoot = decimal.Parse(productDataSplit[1]);

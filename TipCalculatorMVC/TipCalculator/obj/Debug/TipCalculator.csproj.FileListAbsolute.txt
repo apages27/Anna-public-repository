@@ -25,3 +25,31 @@ c:\users\apprentice\documents\visual studio 2012\Projects\TipCalculator\TipCalcu
 c:\users\apprentice\documents\visual studio 2012\Projects\TipCalculator\TipCalculator\obj\Debug\TipCalculator.csprojResolveAssemblyReference.cache
 c:\users\apprentice\documents\visual studio 2012\Projects\TipCalculator\TipCalculator\obj\Debug\TipCalculator.dll
 c:\users\apprentice\documents\visual studio 2012\Projects\TipCalculator\TipCalculator\obj\Debug\TipCalculator.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\TipCalculator.dll.config
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\TipCalculator.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\TipCalculator.pdb
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\Newtonsoft.Json.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Net.Http.Formatting.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Helpers.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Http.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Http.WebHost.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Mvc.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Razor.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.Deployment.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.Razor.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\Newtonsoft.Json.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Net.Http.Formatting.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Helpers.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Http.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Http.WebHost.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Mvc.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.Razor.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.Deployment.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\bin\System.Web.WebPages.Razor.xml
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\obj\Debug\TipCalculator.csprojResolveAssemblyReference.cache
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\obj\Debug\TipCalculator.dll
+C:\Users\anna.pages\Source\Repos\Anna-public-repository\TipCalculatorMVC\TipCalculator\obj\Debug\TipCalculator.pdb

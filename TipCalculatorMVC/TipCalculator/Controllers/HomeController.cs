@@ -20,7 +20,7 @@ namespace TipCalculator.Controllers
         //GET: /Home/GetInput
         public ActionResult GetInput()
         {
-            CalculatorInput input = new CalculatorInput();
+            var input = new CalculatorInput();
             return View(input);
         }
 
@@ -29,7 +29,7 @@ namespace TipCalculator.Controllers
         {
             if (ModelState.IsValid)
             {
-                CalculatorOutput output = new CalculatorOutput(input);
+                var output = new CalculatorOutput(input);
                 return View("Results", output);
             }
             else return View(input);
