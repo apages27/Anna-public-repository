@@ -1,0 +1,19 @@
+﻿<Project>
+  <Version>2.0</Version>
+  <FileID>9b884e47-a3b0-4fb9-a055-d6b2884c4913</FileID>
+  <ProjectType>1</ProjectType>
+  <Folders />
+  <Files>
+    <File Build="2">EcpTester.psd1</File>
+    <File Build="0">EcpTester.psm1</File>
+    <File Build="1" Shared="False">Test-Module.ps1</File>
+    <File Build="1" ReferenceFunction="Invoke-_gitignore">.gitignore</File>
+    <File Build="2" Shared="False">AssignExternalIds.ps1</File>
+    <File Build="2" Shared="False">CommonFunctions.ps1</File>
+    <File Build="2" Shared="False">ApplyLayout.ps1</File>
+    <File Build="2" Shared="False">ClearDisplay.ps1</File>
+    <File Build="2" Shared="False">CloseWindow.ps1</File>
+    <File Build="2" Shared="False">UpdateWindow.ps1</File>
+  </Files>
+  <StartupScript>E:\Code\CineNet.Ecp\Testing Scripts\Test-Module.ps1</StartupScript>
+</Project>
