@@ -18,8 +18,11 @@ namespace VoiceControlPlayground
 
 			choices.Add("v p n");
 			choices.Add("pull all repos");
-			choices.Add("zoom dev");
+			choices.Add("m s teams");
 
+			var grammar = new Grammar(choices);
+
+			speechRecognitionEngine.LoadGrammar(grammar);
 		}
 
 		static void Main(string[] args)
