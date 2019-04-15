@@ -1,3 +1,4 @@
 *.dll 
 VoiceControlPlayground/.vs/*
 /SignalR.Playground/.vs/SignalR*
+/VoiceControlPlayground/VoiceControlPlayground/bin/*
