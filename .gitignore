@@ -2,3 +2,6 @@
 VoiceControlPlayground/.vs/*
 /SignalR.Playground/.vs/SignalR*
 /VoiceControlPlayground/VoiceControlPlayground/bin/*
+/React_Tic-Tac-Toe/.idea
+*.suo
+/VoiceControlPlayground/.vs/VoiceControlPlayground/v15/.suo
