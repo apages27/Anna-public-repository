@@ -16,7 +16,6 @@ if (!("RepoType" -as [Type])) {
 		bootstrapper, 
 		canvas, 
 		common, 
-		power, 
 		room, 
 		spike, 
 		tools, 
@@ -52,7 +51,10 @@ if (!("RepoType" -as [Type])) {
         wc,
         webcommon,
         activity,
-        onvif
+        onvif,
+        powershell,
+        filetransporter,
+        ft
     }
 '@
 }
@@ -228,7 +230,6 @@ function repo([RepoType]$repoName) {
         "boot" { $endingFolder = "CineNet.Bootstrapper" }
         "canvas" { $endingFolder = "CineNet.Graphics.Canvas" }
         "common" { $endingFolder = "CineNet.Common" }
-        "power" { $endingFolder = "PowershellModules" }
         "room" { $endingFolder = "CineNet.RoomService" }
         "spike" { $endingFolder = "Spikes" }
         "test" { $endingFolder = "CineNet.Tests" }
@@ -255,6 +256,9 @@ function repo([RepoType]$repoName) {
         "dataPathLivePreview" {$endingFolder = "CineNet.DataPathLivePreview"}
         "activity" {$endingFolder = "CineNet.Activity"}
         "onvif" {$endingFolder = "CineNet.OnvifWsdl"}
+        "powershell" {$endingFolder = "CineNet.Powershell"}
+        "filetransporter" {$endingFolder = "CineNet.FileTransporter"}
+        "ft" {$endingFolder = "CineNet.FileTransporter"}
     }
 
     $finalDestination = $rootDirectory + $endingFolder
@@ -754,7 +758,7 @@ function Display-Setup {
 
     Write-Host "Auto Creating display" -ForegroundColor Cyan
 
-    New-CmDisplayForEachCanvas
+    New-CmDisplayForEachCanvas -Server "Anna-Dev"
 
     Write-Host "Done creating displays"
 
@@ -898,6 +902,131 @@ function Dev-Cam {
     "1" {Stream-VLC rtsp://root:cinemassive@10.111.13.59/axis-media/media.amp}
     "2" {Stream-VLC rtsp://root:cinemassive@10.111.13.239/axis-media/media.amp}
     }
+}
+
+function StopRemoteCineNetProcess() {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [string]$ProcessName,
+        [string]$Server,
+        [string]$Username = "localadmin",
+        [string]$Password = "cinemassive"
+    )
+
+    if ($Password) {
+        net.exe use \\$Server  /user:$Username $Password    
+    }
+    else {
+        net.exe use \\$Server  /user:$Username   
+    } 
+    
+    if ($ProcessName) {
+        
+        Write-Host "Looking to stop Process $ProcessName" -ForegroundColor DarkYellow
+
+     
+            $foundProcess = Get-Process -ComputerName $Server -Name $ProcessName -ErrorAction SilentlyContinue
+        
+            if ($null -ne $foundProcess) {
+                Write-Host "Stopping Process => $ProcessName"
+                
+                Stop-Process $foundProcess -Force
+                
+                Write-Host "Waiting for $ProcessName to exit"
+                
+                Wait-Process -Name $ProcessName -Timeout 20 -ErrorAction Ignore
+                
+                Write-Host "Waiting" -ForegroundColor Yellow
+                
+                Start-Sleep -Seconds 7
+            }
+            else {
+                Write-Host "Couldn't find a process named $ProcessName on the server $Server!" -ForegroundColor DarkYellow
+                $foundProcesses = Get-Process -ComputerName $Server
+                Write-Host "Found these processes: $foundProcesses" -ForegroundColor Green
+            }
+        
+    }
+}
+
+function StartRemoteCineNetProcess() {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [string]$ProcessName,
+        [string]$Server
+    )
+    
+    if ($ProcessName) {
+        
+        Write-Host "Looking to stop Process $ProcessName" -ForegroundColor DarkYellow
+        
+        $foundProcess = Get-Process -ComputerName $Server -Name $ProcessName -ErrorAction SilentlyContinue
+        
+        if ($null -ne $foundProcess) {
+            Write-Host "Stopping Process => $ProcessName"
+            
+            Stop-Process $foundProcess -Force
+            
+            Write-Host "Waiting for $ProcessName to exit"
+            
+            Wait-Process -Name $ProcessName -Timeout 20 -ErrorAction Ignore
+            
+            Write-Host "Waiting" -ForegroundColor Yellow
+            
+            Start-Sleep -Seconds 7
+        }
+    }
+}
+
+function CopyWallCodeToRemoteAlpha {
+    CopyToServer -ServerFolder "C$\cinemassive\AlphaControl\CineNetWall" -LocalFolder "C:\Code\CineNet.AlphaControl\CineNet.Wall\bin\Release"
+}
+
+function CopyToServer {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [string]$Server = "Cassini",
+        [string]$ServerFolder,
+        [string]$LocalFolder,
+        [string]$Username = "localadmin",
+        [string]$Password = "cinemassive",
+        [switch]$SkipLogin
+    )
+
+    if (-not $SkipLogin) {
+        if ($Password) {
+            net.exe use \\$Server  /user:$Username $Password    
+        }
+        else {
+            net.exe use \\$Server  /user:$Username   
+        }    
+    }
+
+    if (-not $LocalFolder) {
+        Write-Host "Did not provide local folder" -ForegroundColor Cyan
+
+        $LocalFolder = Get-Location
+
+        Write-Host "Going to copy '$LocalFolder'" -ForegroundColor Cyan
+    }
+
+    if (-not $ServerFolder) {
+        Write-Host "Did not provide server folder" -ForegroundColor Magenta
+
+        $serverEndingPath = Split-Path $LocalFolder -Leaf
+
+        $ServerFolder = "Testing\$serverEndingPath"
+
+        Write-Host "Going to copy '$ServerFolder'" -ForegroundColor Magenta
+    }
+
+    $destination = "\\$server\$ServerFolder"
+
+    Write-Host "Copying '$LocalFolder' to '$destination'" -ForegroundColor Yellow
+	
+    Robocopy.exe /S $LocalFolder $destination  /R:0 /XD Logs /IS /IT
+
+    Write-Host "Done copying '$LocalFolder' to '$destination'" -ForegroundColor Green
 }
 
 function split {
