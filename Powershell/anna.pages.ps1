@@ -983,7 +983,6 @@ function CopyWallCodeToRemoteAlpha {
 }
 
 function CopyToServer {
-    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [string]$Server = "Cassini",
         [string]$ServerFolder,
@@ -1045,6 +1044,13 @@ function split {
 
 function getConEmuConsoleCount() {
     @(get-process -ea silentlycontinue "ConEmuC64").count
+}
+
+function killProcessOnPort() {
+    param (
+        [string]$Port
+    )
+    Stop-Process -Id (Get-NetTCPConnection -LocalPort $Port).OwningProcess -Force
 }
 
 split
