@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9bc2f7f5-b324-459c-ab4c-a0e8a07a7cc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/react-playground/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/react-playground/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ReactPlayground.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/react-playground" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588781881799</updated>
       <workItem from="1588781883033" duration="653000" />
-      <workItem from="1589211546226" duration="1495000" />
+      <workItem from="1589211546226" duration="1930000" />
     </task>
     <servers />
   </component>
