@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194.52 194.52">
+  <defs>
+    <style>.a{fill:#fff;}.b{fill:none;stroke:#666;stroke-linecap:round;stroke-linejoin:round;stroke-width:14px;}</style>
+  </defs>
+  <title>Clock-ico</title>
+  <circle class="a" cx="97.26" cy="97.09" r="86.62"/>
+  <circle class="b" cx="97.26" cy="97.26" r="90.26"/>
+  <line class="b" x1="94.89" y1="32.08" x2="94.89" y2="106.58"/>
+  <line class="b" x1="94.89" y1="107.42" x2="147.43" y2="66.37"/>
+</svg>
