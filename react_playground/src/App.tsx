@@ -1,52 +1,48 @@
-import React, {Component} from "react";
-import './App.css';
+import React from "react";
 
-interface IProps {
-	dateFacts?: string[];
-	onSubmit: Function;
-}
+class DateFact extends React.Component<IProps> {
 
-interface IState {
-	dateFacts: string[];
-	month?: string;
-	day?: string;
-}
 
-const CardList = (props: any) => (
-	<div>
-		{props.dateFacts.map((dateFact: any) => <Card key={props.dateFacts.indexOf(dateFact)} {...dateFact}/>)}
-	</div>
-);
-
-class Card extends Component {
 	render() {
-		const dateFact = this.props;
-		return (
-			<div className="github-profile">
-				<div className="info">
-					<div className="name">{dateFact}</div>
-				</div>
-			</div>
-		);
+		return (<div className="date-fact">
+			Fact: On this day in {this.props.year}, {this.props.dateFact}.
+		</div>)
 	}
 }
 
-class Form extends Component<IProps> {
-	state = {day: "", month: ""};
+interface IProps {
+	onSubmit?: any;
+	year?: string;
+	dateFact?: string
+}
+
+class Form extends React.Component<IProps> {
+	state = {
+		month: "",
+		day: "",
+		dateFact: ""
+	};
 
 	handleSubmit = async (event: any) => {
 		event.preventDefault();
-		let url: string = `https://numbersapi.p.rapidapi.com/${this.state.month}/${this.state.day}/date?fragment=false&json=false`;
 
-		const response = await fetch(url, {
+		let url: string = `https://numbersapi.p.rapidapi.com/${this.state.month}/${this.state.day}/date?fragment=false&json=true`;
+
+		fetch(url, {
 			"method": "GET",
 			"headers": {
 				"x-rapidapi-host": "numbersapi.p.rapidapi.com",
 				"x-rapidapi-key": "0173102eccmsha12a431a4720adap1c04edjsn7c69820214b9"
 			}
+		}).then((response: Response) => {
+			return response.json()
+		}).then((json: any) => {
+			console.log(`Json: ${json.text}`)
+			this.props.onSubmit(json);
+
+			this.setState({month: "Enter month"});
+			this.setState({day: "Enter day"});
 		});
-		this.props.onSubmit(response.text());
-		this.setState({day: "", month: ""});
 	};
 
 	render() {
@@ -54,40 +50,38 @@ class Form extends Component<IProps> {
 			<form onSubmit={this.handleSubmit}>
 				<input
 					type="text"
-					placeholder="Month"
 					value={this.state.month}
 					onChange={event => this.setState({month: event.target.value})}
-					required/>
+					placeholder="Enter month"
+					required
+				/>
 				<input
 					type="text"
-					placeholder="Day"
 					value={this.state.day}
 					onChange={event => this.setState({day: event.target.value})}
-					required/>
-				<button>Get Fact</button>
+					placeholder="Enter day"
+					required
+				/>
+				<button>Get Fact!</button>
 			</form>
 		);
 	}
+
 }
 
-class App extends Component<IProps, IState> {
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			dateFacts: [],
-		};
-	}
-
-	addNewDateFact = (newDateFact: any) => {
-		this.setState(prevState => ({dateFacts: [...prevState.dateFacts, newDateFact]}));
+class App extends React.Component {
+	displayFact = (newFact: any) => {
+		this.setState({dateFact: newFact.text, year: newFact.year});
+		console.log(`New state: `, this.state);
 	};
 
 	render() {
 		return (
 			<div>
-				<div className="header">Choose a Date:</div>
-				<Form onSubmit={this.addNewDateFact}/>
-				<CardList dateFacts={this.state.dateFacts}/>
+				<div className="header">The Date Facts App</div>
+				<Form onSubmit={this.displayFact}/>
+				<br/>
+				<DateFact props={this.state}/>
 			</div>
 		);
 	}
