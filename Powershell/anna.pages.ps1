@@ -74,73 +74,6 @@ function gite {
 
 function tc($serverName) { if (Test-Connection $serverName -Count 1 -Quiet) { Write-Host "$serverName is there" } else { Write-Host "$serverName is down" }}
 
-function repo([RepoType]$repoName) {
-
-    $rootDirectory = $env:CodeRoot
-       
-    $endingFolder = "";
-    
-    switch ($repoName) {
-        "ac" { $endingFolder = "CineNet.AlphaControl" }
-        "alpha" { $endingFolder = "CineNet.AlphaControl" }
-        "dc" { $endingFolder = "CineNet.DeviceControl" }
-        "device" { $endingFolder = "CineNet.DeviceControl" }
-        "cinenet" { $endingFolder = "CineNet\CineNet" }
-        "cn" { $endingFolder = "CineNet" }
-        "networkmanager" { $endingFolder = "CineNet.NetworkManager" }
-        "nm" { $endingFolder = "CineNet.NetworkManager" }
-        "auth" { $endingFolder = "CineNet.AuthenticationService" }
-        "as" { $endingFolder = "CineNet.AuthenticationService" }
-        "authservice" { $endingFolder = "CineNet.AuthenticationService" }
-        "web" { $endingFolder = "CineNet.Web" }
-        "devops" { $endingFolder = "DevOps" }
-        "admin" { $endingFolder = "CineNet.Administration" }
-        "administration" { $endingFolder = "CineNet.Administration" }
-        "bootstrapper" { $endingFolder = "CineNet.Bootstrapper" }
-        "boot" { $endingFolder = "CineNet.Bootstrapper" }
-        "canvas" { $endingFolder = "CineNet.Graphics.Canvas" }
-        "common" { $endingFolder = "CineNet.Common" }
-        "room" { $endingFolder = "CineNet.RoomService" }
-        "spike" { $endingFolder = "Spikes" }
-        "test" { $endingFolder = "CineNet.Tests" }
-        "networking" { $endingFolder = "CineNet.Communication.Networking" }
-        "tools" { $endingFolder = "CineNet.Tools" }
-        "streaming" { $endingFolder = "CineNet.Streaming" }
-        "guard" { $endingFolder = "CineNet.GuardianCare" }
-        "behaviors" { $endingFolder = "CineNet.Behaviors" }
-        "ecp" { $endingFolder = "CineNet.Ecp" }
-        "hal" { $endingFolder = "CineNet.Graphics.HardwareAbstraction" }
-        "licensing" { $endingFolder = "CineNet.Licensing" }
-        "one" { $endingFolder = "CineNet.OneService" }
-        "asset" { $endingFolder = "CineNet.AssetManager" }
-        "devicemanager" { $endingFolder = "CineNet.DeviceManager" }
-        "dm" { $endingFolder = "CineNet.DeviceManager" }
-        "us" { $endingFolder = "CineNet.UserState" }
-        "displays" { $endingFolder = "CineNet.Displays" }
-        "wallasset" { $endingFolder = "CineNet.WallAsset" }
-        "install" { $endingFolder = "CineNet.Installer" }
-        "ssl" { $endingFolder = "CineNet.Ssl" }
-        "it" { $endingFolder = "CineNet.Integration.Tests" }
-        "wc" { $endingFolder = "CineNet.Web.Common" }
-        "webcommon" { $endingFolder = "CineNet.Web.Common" }
-        "dataPathLivePreview" {$endingFolder = "CineNet.DataPathLivePreview"}
-        "activity" {$endingFolder = "CineNet.Activity"}
-        "onvif" {$endingFolder = "CineNet.OnvifWsdl"}
-        "powershell" {$endingFolder = "CineNet.Powershell"}
-        "filetransporter" {$endingFolder = "CineNet.FileTransporter"}
-        "ft" {$endingFolder = "CineNet.FileTransporter"}
-        "agent" {$endingFolder = "CineNet.CineAgent"}
-        "sec" {$endingFolder = "CineNet.StreamingEngineCommunicator"}
-    }
-
-    $finalDestination = $rootDirectory + $endingFolder
-
-    Write-Host "Going to Repo "  $finalDestination -ForegroundColor Magenta
-
-    Set-Location $finalDestination
-
-}
-
 function openSolution() {
 
     $solutionLocation = Get-ChildItem -Filter *.sln | Select-Object -first 1
@@ -150,7 +83,7 @@ function openSolution() {
     Invoke-Item $solutionLocation.FullName
 }
 
-function code([RepoType]$repoName) {
+function code($repoName) {
     repo $repoName
     openSolution
 }
@@ -209,22 +142,6 @@ function isInList() {
     }
 	
     $false
-}
-
-function build {
-    param (
-        $pathToSolution,
-        $configuration = "Debug",
-        $target = "Build",
-        [ValidateSet("quiet", "minimal", "detailed", "normal")]$verbosity = "normal",
-        [switch]$restorePackages
-    )
-	
-    if ($restorePackages) {
-        Restore-NugetPackages
-    }
-	
-    Start-MsBuildOrDotNetExe $pathToSolution
 }
 
 function webUI {
@@ -352,27 +269,6 @@ function cloneRepo {
         New-GitClone -GitRepo $GitRepo -DoNotMoveToNewLocation:$DoNotMoveToNewLocation
     }
 }
-
-function updateNuget {
-    param (
-        [switch]$DoNotCommit,
-        [string]$verbosity = "normal"
-    )
-	
-    Start-DotNetUpdatePackages
-
-    Write-Host "Running Build" -ForegroundColor Cyan
-    build -verbosity $verbosity
-
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Build failed with exit code $LASTEXITCODE, not committing changes" -ForegroundColor Yellow
-    }
-	
-    elseif (!$DoNotCommit) {
-        gitc "Updated Packages"
-    }
-}
-
 
 function btWeb {
     repo 'web'
