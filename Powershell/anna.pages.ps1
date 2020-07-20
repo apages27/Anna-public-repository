@@ -642,4 +642,6 @@ function Get-PersonalRepo {
 Set-Location (Join-Path $env:CodeRoot "Anna-public-repository")
 }
 
+Set-Alias gpr Get-PersonalRepo
+
 split
