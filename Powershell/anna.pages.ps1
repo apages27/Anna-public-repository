@@ -1,95 +1,9 @@
-	   
-# Check if the enum exists, if it doesn't, create it.
-# need the zzzz otherwise it will not reconize the device type
-if (!("RepoType" -as [Type])) {
-    Add-Type -TypeDefinition @'
-    public enum RepoType {
-		zzzzz,
-        device, 
-		cinenet, 
-		networkmanager, 
-		auth, 
-		auth_legacy, 
-		web, 
-		devops, 
-		admin, 
-		bootstrapper, 
-		canvas, 
-		common, 
-		room, 
-		spike, 
-		tools, 
-		streaming, 
-		guard, 
-		one, 
-		shared, 
-		hal, 
-		behaviors, 
-		stress, 
-		ecp, 
-		screenShare, 
-		connector, 
-		licensing,
-		webManager,
-		serviceTemplate,
-		alpha,
-		asset,
-		displays,
-		install,
-		dataPathLivePreview,
-		identity,
-		desktop,
-		voice,
-		singleInstall,
-		wallAsset,
-		devicemanager,
-		dm,
-		us,
-		ac,
-		ssl,
-        it,
-        wc,
-        webcommon,
-        activity,
-        onvif,
-        powershell,
-        filetransporter,
-        ft
-    }
-'@
-}
-
 function eh { sudo "C:\Program Files\Notepad++\notepad++.exe" "C:\Windows\System32\drivers\etc\hosts" -p };
 
 function sn+ { Start-Process notepad++ };
 
-function vpn($NewPassword) { 
-    $pathToEncryptedPassword = Join-Path $env:HOME -ChildPath encrypted-password.txt
-
-    if ($NewPassword) {
-        if (Test-Path $pathToEncryptedPassword) {
-            Move-Item $pathToEncryptedPassword "$pathToEncryptedPassword-replaced-on-$(Get-Date -Format {yyyy-dd-MM_hh-mm})"
-        }
-        Set-Content -Path $pathToEncryptedPassword -Value $($NewPassword | ConvertTo-SecureString -AsPlainText -Force | ConvertFrom-SecureString)
-    }
-
-
-    $netCred = (New-Object System.Management.Automation.PSCredential -ArgumentList anna.pages, (Get-Content $pathToEncryptedPassword | ConvertTo-SecureString)).GetNetworkCredential()
-    disco
-    rasdial.exe "CineMassive VPN" $netCred.UserName $netCred.Password
-}
-
 function gitmerge {
     git pull origin master
-}
-
-function disco {
-    rasdial.exe /Disconnect
-}
-
-function cts([ValidateSet('Galactica', 'WhiteStar', 'Nostromo', 'TigersClaw', 'StarFury', 'NoSerenity', 'voyager')]$serverName) {
-    Set-CmEnvironmentVariable -EnvironmentVariable CineTestServer -Value $serverName
-    "Server changed to $env:CineTestServer"
 }
 
 function setenv {
@@ -111,52 +25,12 @@ function vnc($computer) {
     Start-Process $pathToTightVnc $computer
 }
 
-function zoomHolodeck($meetingId = "5285149116") {
-    $zoomArguments = "--url=zoommtg://zoom.us/join?action=join&confid=dGlkPWIwYzdjZTZiN2I0YTU2YmNhYmE2ZmJjM2Q4ZWY5ZmQz&confno=$meetingId&zc=0&pk=&mcv=0.92.11227.0929&browser=chrome"
-
-    Start-Process $env:ZoomLocation $zoomArguments
-}
-
-function zoomFarpoint($meetingId = "4465322665") {
-    $zoomArguments = "--url=zoommtg://zoom.us/join?action=join&confid=dGlkPWIwYzdjZTZiN2I0YTU2YmNhYmE2ZmJjM2Q4ZWY5ZmQz&confno=$meetingId&zc=0&pk=&mcv=0.92.11227.0929&browser=chrome"
-
-    Start-Process $env:ZoomLocation $zoomArguments
-}
-
-function zoomgs($meetingId = "5742885281") {
-    $zoomArguments = "--url=zoommtg://zoom.us/join?action=join&confid=dGlkPWIwYzdjZTZiN2I0YTU2YmNhYmE2ZmJjM2Q4ZWY5ZmQz&confno=$meetingId&zc=0&pk=&mcv=0.92.11227.0929&browser=chrome"
-
-    Start-Process $env:ZoomLocation $zoomArguments
-}
-
-function zoomBridgeOfAwesome($meetingId = "7398400979") {
-    $zoomArguments = "--url=zoommtg://zoom.us/join?action=join&confid=dGlkPWIwYzdjZTZiN2I0YTU2YmNhYmE2ZmJjM2Q4ZWY5ZmQz&confno=$meetingId&zc=0&pk=&mcv=0.92.11227.0929&browser=chrome"
-
-    Start-Process $env:ZoomLocation $zoomArguments
-}
-
-function zoff {
-    Get-Process zoom -ErrorAction SilentlyContinue | Stop-Process
-}
-
-function zwitchF {
-    zoff
- 
-    zoomFarpoint
-}
-
-function zwitchH {
-    zoff
- 
-    zoomHolodeck
-}
-
 function pullAllRepos {
     Clear-Host
 
     $currentLocation = Get-Location
 
-    Step-Repos {
+    Step-Repo {
 		git.exe fetch
         $status = Get-GitStatus -ForegroundColor Yellow
         Write-Host "Git Status: $status"
@@ -173,10 +47,6 @@ function pullAllRepos {
     . $PROFILE
 
     Set-Location $currentLocation
-}
-
-function trello {
-    Start-Process https://trello.com/b/xyKA1vXn/1-cm-dev-weekly-wip
 }
 
 function gitc { 
@@ -206,7 +76,7 @@ function tc($serverName) { if (Test-Connection $serverName -Count 1 -Quiet) { Wr
 
 function repo([RepoType]$repoName) {
 
-    $rootDirectory = $env:CineMassiveCodeRoot
+    $rootDirectory = $env:CodeRoot
        
     $endingFolder = "";
     
@@ -222,7 +92,7 @@ function repo([RepoType]$repoName) {
         "auth" { $endingFolder = "CineNet.AuthenticationService" }
         "as" { $endingFolder = "CineNet.AuthenticationService" }
         "authservice" { $endingFolder = "CineNet.AuthenticationService" }
-        "web" { $endingFolder = "CineNetWeb" }
+        "web" { $endingFolder = "CineNet.Web" }
         "devops" { $endingFolder = "DevOps" }
         "admin" { $endingFolder = "CineNet.Administration" }
         "administration" { $endingFolder = "CineNet.Administration" }
@@ -259,6 +129,8 @@ function repo([RepoType]$repoName) {
         "powershell" {$endingFolder = "CineNet.Powershell"}
         "filetransporter" {$endingFolder = "CineNet.FileTransporter"}
         "ft" {$endingFolder = "CineNet.FileTransporter"}
+        "agent" {$endingFolder = "CineNet.CineAgent"}
+        "sec" {$endingFolder = "CineNet.StreamingEngineCommunicator"}
     }
 
     $finalDestination = $rootDirectory + $endingFolder
@@ -339,62 +211,6 @@ function isInList() {
     $false
 }
 
-function bare {
-    Push-Location $env:CineNetInstallRoot
-
-    Get-ChildItem *.log -Recurse -Exclude CineNet.OneService.log, WebServer.*.log, CineNet.SingleInstall.log, mongo.log, CineNet.Bootstrapper.log, CineNet.Ecp.log | Sort-Object -Property Name | ForEach-Object { $list += "$_ " }
-
-    Write-Host "Launching baretail with these files: $list"
-    Start-Process baretail.exe $list.Trim()
-    Pop-Location
-}
-
-function resetForTesting() {
-    param (
-        [string[]]$ServicesToDelete,
-        [switch]$DeleteMongo,
-        [switch]$DeleteNode,
-        [switch]$CineNetToOpen,
-        [switch]$KeepInstallData
-    )
-	
-    Reset-CineNetForTesting -ServicesToDelete $ServicesToDelete -DeleteMongo:$DeleteMongo -DeleteNode:$DeleteNode -CineNetToOpen:$CineNetToOpen -KeepInstallData:$KeepInstallData
-}
-
-function deployCodeBuilder {
-    robocopy $env:CineMassiveCodeRoot\CineNet.Administration\CineNet.CodeBuilder\bin\Debug\ \\tigersclaw\testing\cinenetcodebuilder\
-}
-
-function runBuildLocally {
-    [CmdletBinding(SupportsShouldProcess = $true)]
-    param(
-        [Parameter(Mandatory = $True)][int]$buildNumber, 
-        [string]$reposAndBranches,
-        [string]$configuration = "Release"
-    )
-  
-    #Sample usage of reposAndBranches
-
-    Push-Location (Join-Path $env:CineMassiveCodeRoot "CineNet.Administration")
-    $deleteResult = Remove-Item "*\bin\*" -Recurse -Force -ErrorAction SilentlyContinue
-    Write-Verbose "Results of delete: $deleteResult"
-
-    build -configuration $configuration 
-    Push-Location ".\CineNet.CodeBuilder\bin\Release"
-    $argumentList = "-d E:\Code\Builds -b $buildNumber --leaveDirectories --outToConsole"
-
-    if ($reposAndBranches) {
-        $argumentList += " --reposAndBranches $reposAndBranches"
-        Write-Verbose "Using Repos And Branches: ($reposAndBranches | Out-String)"
-    }
-
-    Write-Verbose "Running CodeBuilder with Arguments: $argumentList"
-    Invoke-Expression "& .\CineNetCodeBuilder.exe $argumentList"
-    Copy-Item C:\dev\Builds\Build_3_0_$buildNumber\CineNet.cm C:\dev\CineNet.Administration\FilesToEmbed\ -Force
-
-    Pop-Location
-}
-
 function build {
     param (
         $pathToSolution,
@@ -417,20 +233,6 @@ function webUI {
     webStorm
 }
 
-function webCommon {
-    repo 'wc'
-	
-    webStorm
-}
-
-function UIDemo {
-    Set-Location C:\Code\DisplayLayoutDemo
-
-    pull
-
-    webStorm
-}
-
 function webStorm {
     param(
         [switch] $Blank
@@ -448,18 +250,6 @@ function webStorm {
     
         Invoke-Expression $fullCommand   
     }
-}
-
-function pss {
-    Start-Process "C:\Program Files\SAPIEN Technologies, Inc\PowerShell Studio 2017\PowerShell Studio.exe"
-	
-    repo 'power'
-}
-
-function devOps {
-    repo 'devops'
-	
-    vscode
 }
 
 function vscode {
@@ -501,63 +291,6 @@ function clone([switch]$Elevate, [switch] $Vertical) {
     }
 
     powershell.exe "-new_console:s50$($orientation)$($elevateOption)"
-}
-
-function runService {
-    param(
-        [switch] $Release
-    )
-    if ($Release) {
-        Write-Host "Running service in Release configuration" -ForegroundColor Yellow
-        Start-CineNetServiceInReleaseFolder
-    }
-    else {
-        Write-Host "Running service in Debug configuration" -ForegroundColor Yellow
-        Start-CineNetServiceInDebugFolder
-    }
-}
-
-function Start-CineNetServiceInReleaseFolder {
-    [CmdletBinding()]
-    param ()
-    $gitIgnore = FindFileInDirectoryOrGoUp -currentDirectory $(Get-Item $PWD) -pattern ".gitIgnore"
-	
-    if ($gitIgnore) {
-		
-        $nameOfService = $gitIgnore.Directory.Name
-		
-        $pathToServiceDirectory = Join-Path $gitIgnore.Directory.FullName "$nameOfService\bin\Release\net471"
-		
-        if (-not (Test-Path $pathToServiceDirectory)) {
-            $pathToServiceDirectory = Join-Path $gitIgnore.Directory.FullName "$nameOfService\bin\Release"
-        }
-		
-        Write-Host "Path to Service Directory $pathToServiceDirectory" -ForegroundColor Cyan`
-		
-        Write-Verbose $($gitIgnore.Directory.FullName)
-        Write-Verbose "Running CineNet.OneService in: $pathToService"
-		
-        try {
-            Push-Location $pathToServiceDirectory
-            Copy-Item ".\$nameOfService.dll.config" ".\CineNet.OneService.exe.config" -Force
-            Start-Process -FilePath ".\CineNet.OneService.exe" -NoNewWindow -Wait -ErrorAction Continue
-        }
-        finally {
-            Pop-Location
-        }
-    }
-}
-
-function br() {
-    build
-	
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "Build succeeded" -ForegroundColor Green
-        runService
-    }
-    else {
-        Write-Host "Build Failed not running service" -ForegroundColor Red
-    }
 }
 
 function killTheProcess() {
@@ -640,53 +373,6 @@ function updateNuget {
     }
 }
 
-function wiki() {
-    Start-Process https://github.com/Cinemassive/DevOps/wiki
-}
-
-function test() {
-    param (
-        [ValidateSet("quiet", "minimal", "detailed", "normal")]$verbosity = "normal",
-        [switch]$runBuild,
-        [string]$name
-    )
-        
-    Clear-Host
-    
-    if ($runBuild) {
-        Write-Host "Running Build" -ForegroundColor Cyan
-        build -verbosity $verbosity
-    }
-    else {
-        $LASTEXITCODE = 0
-    }
-    
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Build failed with exit code $LASTEXITCODE, not running tests" -ForegroundColor Yellow
-    }
-    else {
-        
-        if ($name) {
-            
-            Write-Host "Build succeeded, running test with name filter $name" -ForegroundColor Yellow
-            
-            Start-NUnitTestsFromDebugFolder -where "test=~$name"
-        }
-        else {
-            Write-Host "Build succeeded, running tests" -ForegroundColor Cyan
-
-            Start-NUnitTestsFromDebugFolder
-        }
-    }
-}
-
-function bt {
-    param (
-        [string]$testName
-    )
-	
-    test -runBuild -name $testName -verbosity "detailed"
-}
 
 function btWeb {
     repo 'web'
@@ -701,19 +387,6 @@ function resetColor () {
     Write-Verbose ($PSBoundParameters | Out-String)
 
     [Console]::ResetColor()
-}
-
-function Get-CineNetVersion () {
-    [CmdletBinding()]
-    param()
-    
-    Write-Verbose ($PSBoundParameters | Out-String)
-
-    Push-Location $env:CineNetInstallRoot
-
-    Get-ChildItem **\version.cm | ForEach-Object { $_.FullName; Get-Content $_ }
-
-    Pop-Location
 }
 
 function Add-FolderToPath {
@@ -746,54 +419,6 @@ function Add-FolderToPath {
     }
 }
 
-function Update-Latest {
-    [CmdletBinding()]
-    param()
-    Install-Latest -SkipDataReset -SkipDisplaySetUp -SkipAdminUser -UseFakeWall
-}
-
-function Display-Setup {
-    # We need to wait for the wall to actually start up
-    Start-Sleep -Seconds 5
-
-    Write-Host "Auto Creating display" -ForegroundColor Cyan
-
-    New-CmDisplayForEachCanvas -Server "Anna-Dev"
-
-    Write-Host "Done creating displays"
-
-    $room = New-CmRoom -Name "Auto Generated Room"
-
-    $roomId = $room.RoomId
-
-    $displays = Get-CmDisplay
-
-    $displays | ForEach-Object {
-        $displayId = $_.DisplayId
-
-        New-CmAddDisplayToRoom -RoomId $roomId -DisplayId $displayId
-    }
-
-    New-CmActivity -RoomId $roomId -ActivityName "Auto Generated Activity"
-}
-
-$env:AlphaSettingsJson = @"
-{
-  "CanvasSettings":  [
-            {
-              "HorizontalPanels":2,
-              "VerticalPanels":2,
-              "Bounds":"0, 0, 1920, 1200"
-          }
-          ],
-  "DefaultVericalPanels":  2,
-  "OutputType":  "AlphaFx",
-  "DefaultHorizontalPanels":  2
-}
-"@
-
-Set-Alias ll Set-LogLevel
-
 function gcd {
     param (
         [string]$commandName
@@ -802,88 +427,6 @@ function gcd {
     (Get-Command $commandName).Definition
 }
 
-function buildCommon {
-    Set-Location (Join-Path $env:CineMassiveCodeRoot "CineNet.Web.Common")
-    ng build @cinemassive/common --prod
-}
-
-function pubCommon {
-    Run-NpmPublishCommon
-}
-
-function testCommon {
-    Set-Location (Join-Path $env:CineMassiveCodeRoot "CineNet.Web.Common")
-    ng test @cinemassive/common --watch=false
-}
-
-function btCommon {
-    Clear-Host
-
-    Write-Host "Running Build" -ForegroundColor Green
-    buildCommon
-    
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Build failed with exit code $LASTEXITCODE, not running tests" -ForegroundColor Yellow
-    }
-    else {
-        Write-Host "Build succeeded, running tests" -ForegroundColor Green
-
-        testCommon
-    }
-}
-
-function updateWebCommon {
-    repo 'web'
-
-    npm install @cinemassive/common
-}
-
-function runIT {
-    param (
-        [Switch]$local = $False,
-        [string]$Branch
-    )
-    pullAllRepos
-
-    . $PROFILE
-
-    refreshenv
-
-    Clean-CineNetInstall
-
-    refreshenv
-
-    if ($local) {
-        Test-CineNetIntergration -RunInstallLocaly -PackageLocally -Branch $Branch
-    }
-    else {
-        Test-CineNetIntergration   
-    }
-}
-
-function Install-CineNet34 {
-    Clean-CineNetInstall
-
-    refreshenv
-
-	Push-Location "C:\CineBuilds\OlderInstalls"
-
-	.\CineNetInstaller_3.4.2491.89 install all
-}
-
-function Fresh-Install {
-    Clean-CineNetInstall
-
-    Clean-CineNetInstall
-
-    refreshenv
-
-    pullAllRepos
-
-    . $PROFILE
-
-    Install-Latest -EnableSSL -CreateInstallData
-}
 
 function Stream-VLC {
     param (
@@ -891,95 +434,6 @@ function Stream-VLC {
     )
 
     Start-Process vlc.exe $url
-}
-
-function Dev-Cam {
-    param (
-        [string]$camNumber
-    )
-
-    switch ($camNumber) {
-    "1" {Stream-VLC rtsp://root:cinemassive@10.111.13.59/axis-media/media.amp}
-    "2" {Stream-VLC rtsp://root:cinemassive@10.111.13.239/axis-media/media.amp}
-    }
-}
-
-function StopRemoteCineNetProcess() {
-    [CmdletBinding(SupportsShouldProcess = $true)]
-    param (
-        [string]$ProcessName,
-        [string]$Server,
-        [string]$Username = "localadmin",
-        [string]$Password = "cinemassive"
-    )
-
-    if ($Password) {
-        net.exe use \\$Server  /user:$Username $Password    
-    }
-    else {
-        net.exe use \\$Server  /user:$Username   
-    } 
-    
-    if ($ProcessName) {
-        
-        Write-Host "Looking to stop Process $ProcessName" -ForegroundColor DarkYellow
-
-     
-            $foundProcess = Get-Process -ComputerName $Server -Name $ProcessName -ErrorAction SilentlyContinue
-        
-            if ($null -ne $foundProcess) {
-                Write-Host "Stopping Process => $ProcessName"
-                
-                Stop-Process $foundProcess -Force
-                
-                Write-Host "Waiting for $ProcessName to exit"
-                
-                Wait-Process -Name $ProcessName -Timeout 20 -ErrorAction Ignore
-                
-                Write-Host "Waiting" -ForegroundColor Yellow
-                
-                Start-Sleep -Seconds 7
-            }
-            else {
-                Write-Host "Couldn't find a process named $ProcessName on the server $Server!" -ForegroundColor DarkYellow
-                $foundProcesses = Get-Process -ComputerName $Server
-                Write-Host "Found these processes: $foundProcesses" -ForegroundColor Green
-            }
-        
-    }
-}
-
-function StartRemoteCineNetProcess() {
-    [CmdletBinding(SupportsShouldProcess = $true)]
-    param (
-        [string]$ProcessName,
-        [string]$Server
-    )
-    
-    if ($ProcessName) {
-        
-        Write-Host "Looking to stop Process $ProcessName" -ForegroundColor DarkYellow
-        
-        $foundProcess = Get-Process -ComputerName $Server -Name $ProcessName -ErrorAction SilentlyContinue
-        
-        if ($null -ne $foundProcess) {
-            Write-Host "Stopping Process => $ProcessName"
-            
-            Stop-Process $foundProcess -Force
-            
-            Write-Host "Waiting for $ProcessName to exit"
-            
-            Wait-Process -Name $ProcessName -Timeout 20 -ErrorAction Ignore
-            
-            Write-Host "Waiting" -ForegroundColor Yellow
-            
-            Start-Sleep -Seconds 7
-        }
-    }
-}
-
-function CopyWallCodeToRemoteAlpha {
-    CopyToServer -ServerFolder "C$\cinemassive\AlphaControl\CineNetWall" -LocalFolder "C:\Code\CineNet.AlphaControl\CineNet.Wall\bin\Release"
 }
 
 function CopyToServer {
