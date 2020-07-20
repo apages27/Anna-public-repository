@@ -20,33 +20,8 @@ function setenv {
 }
 
 function vnc($computer) {
-    $computer = if ($computer) { $computer } else { $env:CineTestServer }
     $pathToTightVnc = Join-Path $env:ProgramFiles "TightVNC\tvnviewer.exe"
     Start-Process $pathToTightVnc $computer
-}
-
-function pullAllRepos {
-    Clear-Host
-
-    $currentLocation = Get-Location
-
-    Step-Repo {
-		git.exe fetch
-        $status = Get-GitStatus -ForegroundColor Yellow
-        Write-Host "Git Status: $status"
-		$hasStuffToPull = $status.BehindBy -ge 1
-		$noLocalChanges = (-not $status.HasWorking) -and (-not $status.HasIndex)
-		if ($hasStuffToPull) {
-			git.exe pull
-        }
-
-		Write-VcsStatus
-		Write-Host "$_" -ForegroundColor Green
-	}
-
-    . $PROFILE
-
-    Set-Location $currentLocation
 }
 
 function gitc { 
@@ -222,7 +197,6 @@ function killTheProcess() {
     Write-Host "Done stopping $ProcessToStop" -ForegroundColor Green
 }
 
-
 function resetToMaster() {
     git fetch
     git checkout -B master
@@ -334,11 +308,11 @@ function Stream-VLC {
 
 function CopyToServer {
     param (
-        [string]$Server = "Cassini",
+        [string]$Server = "",
         [string]$ServerFolder,
         [string]$LocalFolder,
-        [string]$Username = "localadmin",
-        [string]$Password = "cinemassive",
+        [string]$Username = "",
+        [string]$Password = "",
         [switch]$SkipLogin
     )
 
@@ -401,6 +375,271 @@ function killProcessOnPort() {
         [string]$Port
     )
     Stop-Process -Id (Get-NetTCPConnection -LocalPort $Port).OwningProcess -Force
+}
+
+function Explore-Functions {
+	$list = Get-ChildItem function:
+
+	$searchList = @()
+
+	foreach ($item in $list) {
+		$moduleName = $item.ModuleName.PadRight(20, ' ')
+
+		if ([string]::IsNullOrWhiteSpace($moduleName)) {
+			continue
+		}
+
+		$searchString = "$($moduleName.PadRight(40, ' '))  $($item.Name)"
+
+		Write-Host $searchString
+
+		$searchList += $searchString
+	}
+
+	$result = $searchList | Invoke-Fzf
+
+	$functionToCall = $result.Remove(0, 42)
+
+	Write-Host "$functionToCall" -ForegroundColor Yellow
+}
+
+function Clean-Code {
+	[CmdletBinding()]
+	param(
+		[switch]$ForPR = $false
+	)
+
+	if (-not (Get-Command "cleanupcode.exe")) {
+		choco install resharper-clt
+	}
+
+	$solutionLocation = Get-ChildItem -Filter *.sln | Select-Object -first 1
+
+	if (-not $solutionLocation) {
+		Write-Host "No Solution Found"
+		return;
+	}
+
+	$branch = git rev-parse --abbrev-ref HEAD
+	$currentDir = ((Get-Item -Path ".\").Name)
+	$touchedFiles = @()
+
+	if ($ForPR) {
+		Write-Verbose "Looking into unmerged files"
+		$touchedFiles = (git diff --name-only $branch $(git merge-base $branch master) ) -split '\n'
+	} else {
+		Write-Verbose "Looking at modified and new files"
+		$newFiles = (git ls-files -o --exclude-standard) -split '\n'
+		$modifiedFiles = (git ls-files -m) -split '\n'
+		$touchedFiles = $newFiles + $modifiedFiles
+	}
+
+	$touchedFiles = $touchedFiles | Where { [System.IO.File]::Exists(  [System.IO.Path]::Combine($env:CodeRoot, $currentDir, $_) )}
+
+	if ($touchedFiles -gt 0) {
+		$include = $touchedFiles -join ";"
+		Write-Verbose "Files to clean: $include"
+		cleanupcode --include=$include $solutionLocation.FullName
+	} else {
+		Write-Verbose "No files to clean."
+	}
+}
+
+function Get-Branches() {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+    )
+
+    $branches = git branch -a
+
+    $remoteOnlyBranches = @();
+    $localBranches = @();
+
+    $branches | ForEach-Object {
+        $normalName = $_ -replace "remotes/origin/", ""
+
+        if ($_ -like "*remotes/origin/*") {
+            $remoteOnlyBranches += $normalName;
+        }
+        else {
+            $localBranches += $normalName;
+        }
+    }
+
+    Write-Host "----------------- Local Branches -------------------------" -ForegroundColor Magenta
+
+    $localBranches | ForEach-Object {
+        Write-Host "      $_" -ForegroundColor Magenta
+    }
+
+    Write-Host ""
+    Write-Host "----------------- Remote Branches -------------------------" -ForegroundColor DarkCyan
+
+    $remoteOnlyBranches | ForEach-Object {
+        Write-Host "      $_" -ForegroundColor DarkCyan
+    }
+}
+
+function Create-PR {
+    param($repositoryId, $fromBranch, $title, $toBranch = "master")
+    $mutation = @"
+    mutation {
+        createPullRequest( input: {repositoryId:"$repositoryId",baseRefName:"$toBranch", headRefName:"$fromBranch",title:"$title"}){
+          clientMutationId,
+          pullRequest{
+            url,
+            id
+          }
+        }
+      }
+"@
+    return  InvokeGitHubGraphQL -query $mutation
+}
+
+function Request-PRReview {
+    param($pullRequestId, $reviewer)
+    $mutation = @"
+    mutation {
+        requestReviews(input: {pullRequestId:"$pullRequestId",userIds:["$reviewer"]}){
+            pullRequest{
+              url,
+              id
+            }
+        }
+    }
+"@
+    return  InvokeGitHubGraphQL -query $mutation
+}
+
+function Get-GitHubUser {
+    param($login)
+    $query = @"
+    query{
+      user(login: "$login"){
+        id,
+        url,
+        avatarUrl,
+        bio
+      }
+    }
+"@
+    return  InvokeGitHubGraphQL -query $query
+}
+
+function InvokeGitHubGraphQL {
+    param($query)
+    $jsonBody = @{query = $query} | ConvertTo-Json
+    $res = Invoke-RestMethod -Headers @{Authorization = "bearer " + $env:GitHubPersonalAccessToken} -Uri "https://api.github.com/graphql" -Method Post -Body $jsonBody
+    Write-Host $res.errors
+    return $res.data
+}
+
+function New-PullRequest() {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [Parameter(Mandatory = $True)][string]$title,
+        [string]$reviewer = ""
+    )
+
+    $reviewerDetails = Get-GitHubUser -login $reviewer
+    $branch = git rev-parse --abbrev-ref HEAD
+    $currentRepo = Current-GitHubRepo
+
+    $pr = Create-PR -repositoryId $currentRepo.id -fromBranch $branch -title $title -toBranch "master"
+    $reviewRequest = Request-PRReview -pullRequestId $pr.createPullRequest.pullRequest.id -reviewer $reviewerDetails.user.id
+    Write-Host $pr.createPullRequest.pullRequest.url
+}
+
+function Current-GitHubRepo() {
+    $repoUrl = (git config --get remote.origin.url).Split('/')
+    $repoOwner = $repoUrl[-2]
+    $repoName = $repoUrl[-1].Replace(".git", "")
+    $query = "query {repository(owner: ""$repoOwner"", name:""$repoName""){id,url}}"
+    $res = InvokeGitHubGraphQL -query $query
+    return $res.repository
+}
+
+function Switch-Branch() {
+    [CmdletBinding()]
+    Param(
+        # Any other parameters can go here
+    )
+ 
+    DynamicParam {
+        # Set the dynamic parameters' name
+        $ParameterName = 'Name'
+
+        # Create the dictionary
+        $RuntimeParameterDictionary = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
+
+        # Create the collection of attributes
+        $AttributeCollection = New-Object System.Collections.ObjectModel.Collection[System.Attribute]
+
+        # Create and set the parameters' attributes
+        $ParameterAttribute = New-Object System.Management.Automation.ParameterAttribute
+        $ParameterAttribute.Mandatory = $false
+        $ParameterAttribute.Position = 1
+
+        # Add the attributes to the attributes collection
+        $AttributeCollection.Add($ParameterAttribute)
+
+        # Generate and set the ValidateSet
+        $arrSet = Get-AListOfBranches
+
+        $ValidateSetAttribute = New-Object System.Management.Automation.ValidateSetAttribute($arrSet)
+
+        # Add the ValidateSet to the attributes collection
+        $AttributeCollection.Add($ValidateSetAttribute)
+
+        # Create and return the dynamic parameter
+        $RuntimeParameter = New-Object System.Management.Automation.RuntimeDefinedParameter($ParameterName, [string], $AttributeCollection)
+        $RuntimeParameterDictionary.Add($ParameterName, $RuntimeParameter)
+
+        return $RuntimeParameterDictionary
+    }
+
+    begin {
+        # Bind the parameter to a friendly variable
+        $Name = $PsBoundParameters[$ParameterName]
+    }
+
+    process {
+        if (-not $Name) {
+            $branches = Get-AListOfBranches
+
+            $Name = $branches | Invoke-Fzf
+        }
+
+        git checkout $Name
+        pp
+    }
+}
+
+function Get-AListOfBranches {
+    $finalList = @(
+        "master"
+    )
+
+    $branches = git branch -a
+
+    $branches | ForEach-Object {
+        $normalName = $_ -replace "remotes/origin/", ""
+        $normalName = $normalName -replace "\*", ""
+
+        $normalName = $normalName.Trim()
+
+        $isCurrentlyInList = Get-IsInList $finalList $normalName
+
+        if (-not $isCurrentlyInList) {
+            $finalList += $normalName
+        }
+    }
+
+    $finalList
+}
+
+function Get-PersonalRepo {
+Set-Location (Join-Path $env:CodeRoot "Anna-public-repository")
 }
 
 split
