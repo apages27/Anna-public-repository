@@ -1,13 +1,12 @@
 import React from "react";
 
-class DateFact extends React.Component<IProps>  {
+const DateFact = (props: any) => {
 
 
-    render() {
-        return (<div className="date-fact">
-            Fact: On this day in {this.state.year}, {this.state.dateFact}.
-        </div>)
-    }
+    return (<div className="date-fact">
+        Fact: On this day in {props.state.year}, {props.state.dateFact}.
+    </div>)
+
 }
 
 interface IProps {
