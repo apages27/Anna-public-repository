@@ -1,7 +1,7 @@
 import React from "react";
 
 const DateFact = (props: any) => {
-    return (<div className="date-fact">
+    return (<div hidden={!props.state.year} className="date-fact">
         Fact: On this day in {props.state.year}, {props.state.dateFact}.
     </div>)
 }
