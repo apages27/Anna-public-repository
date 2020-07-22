@@ -1,21 +1,12 @@
 import React from "react";
 
 const DateFact = (props: any) => {
-
-
     return (<div className="date-fact">
         Fact: On this day in {props.state.year}, {props.state.dateFact}.
     </div>)
-
 }
 
-interface IProps {
-    onSubmit?: any;
-    year?: string;
-    dateFact?: string
-}
-
-class Form extends React.Component<IProps> {
+class Form extends React.Component<any> {
     state = {
         month: "",
         day: "",
@@ -36,11 +27,10 @@ class Form extends React.Component<IProps> {
         }).then((response: Response) => {
             return response.json()
         }).then((json: any) => {
-            console.log(`Json: ${json.text}`)
             this.props.onSubmit(json);
 
-            this.setState({month: "Enter month"});
-            this.setState({day: "Enter day"});
+            this.setState({month: ""});
+            this.setState({day: ""});
         });
     };
 
@@ -78,7 +68,7 @@ class App extends React.Component {
     }
 
     setFact = (newFactInfo: any) => {
-        this.setState({dateFact: newFactInfo.dateFact, year: newFactInfo.year});
+        this.setState({dateFact: newFactInfo.text, year: newFactInfo.year});
     }
 
     render() {
